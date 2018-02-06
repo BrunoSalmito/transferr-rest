@@ -38,6 +38,7 @@ public class RESTExemplo extends ASuperRestClass<Exemplo>{
 	@Path("on")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response doGetOn(){
+		System.out.println("Server is OK!!!");
 		return Response.ok("OK").build();
 	}
 	
