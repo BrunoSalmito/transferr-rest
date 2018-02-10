@@ -3,7 +3,7 @@ package br.com.transferr.rest.util;
 import javax.ws.rs.core.Response;
 
 import br.com.transferr.core.enums.EnumFailSystem;
-import br.com.transferr.core.exceptions.ExceptionValidation;
+import br.com.transferr.core.exceptions.ValidationException;
 import br.com.transferr.core.responses.ResponseOK;
 
 
@@ -12,7 +12,7 @@ import br.com.transferr.core.responses.ResponseOK;
 
 public class RestUtil {
 
-	public static Response getResponseValidationErro(ExceptionValidation ex){
+	public static Response getResponseValidationErro(ValidationException ex){
 		//ex.printStackTrace();
 		return getResponseValidationErro(ex.getMessage(),ex.getCampoErro());
 	}

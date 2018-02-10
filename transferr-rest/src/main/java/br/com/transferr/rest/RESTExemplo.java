@@ -13,7 +13,7 @@ import javax.ws.rs.core.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.com.transferr.core.exceptions.ExceptionValidation;
+import br.com.transferr.core.exceptions.ValidationException;
 import br.com.transferr.core.model.Exemplo;
 import br.com.transferr.core.role.RoleExemplo;
 import br.com.transferr.rest.util.RestUtil;
@@ -54,7 +54,7 @@ public class RESTExemplo extends ASuperRestClass<Exemplo>{
 		Exemplo entidade=null;
 		try {
 			entidade= roleExemplo.find(id);
-		} catch (ExceptionValidation e) {
+		} catch (ValidationException e) {
 			return RestUtil.getResponseValidationErro(e);
 		} catch (Exception e) {
 			return RestUtil.getResponseErroInesperado(e);
@@ -75,7 +75,7 @@ public class RESTExemplo extends ASuperRestClass<Exemplo>{
 		if(exemplo.getId()>0){
 			try {
 				roleExemplo.update(exemplo);
-			} catch (ExceptionValidation e) {
+			} catch (ValidationException e) {
 				return RestUtil.getResponseValidationErro(e);
 			}catch (Exception e) {
 				return RestUtil.getResponseErroInesperado(e);
@@ -83,7 +83,7 @@ public class RESTExemplo extends ASuperRestClass<Exemplo>{
 		}else{
 			try {
 				roleExemplo.insert(exemplo);
-			} catch (ExceptionValidation e) {
+			} catch (ValidationException e) {
 				return RestUtil.getResponseValidationErro(e);
 			}catch (Exception e) {
 				return RestUtil.getResponseErroInesperado(e);
@@ -105,7 +105,7 @@ public class RESTExemplo extends ASuperRestClass<Exemplo>{
 	public Response delete(@PathParam("id") long id){
 		try {
 			roleExemplo.delete(id);
-		} catch (ExceptionValidation e) {
+		} catch (ValidationException e) {
 			return RestUtil.getResponseValidationErro(e);
 		}catch (Exception e) {
 			return RestUtil.getResponseErroInesperado(e);

@@ -13,7 +13,7 @@ import javax.ws.rs.core.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.com.transferr.core.exceptions.ExceptionValidation;
+import br.com.transferr.core.exceptions.ValidationException;
 import br.com.transferr.core.model.Coordinate;
 import br.com.transferr.core.role.RoleCoordinate;
 import br.com.transferr.rest.util.RestUtil;
@@ -54,7 +54,7 @@ public class RESTCoordinate extends ASuperRestClass<Coordinate>{
 		Coordinate entidade=null;
 		try {
 			entidade= roleCoordinate.find(id);
-		} catch (ExceptionValidation e) {
+		} catch (ValidationException e) {
 			return RestUtil.getResponseValidationErro(e);
 		} catch (Exception e) {
 			return RestUtil.getResponseErroInesperado(e);
@@ -75,7 +75,7 @@ public class RESTCoordinate extends ASuperRestClass<Coordinate>{
 		if(exemplo.getId()>0){
 			try {
 				roleCoordinate.update(exemplo);
-			} catch (ExceptionValidation e) {
+			} catch (ValidationException e) {
 				return RestUtil.getResponseValidationErro(e);
 			}catch (Exception e) {
 				return RestUtil.getResponseErroInesperado(e);
@@ -83,7 +83,7 @@ public class RESTCoordinate extends ASuperRestClass<Coordinate>{
 		}else{
 			try {
 				roleCoordinate.insert(exemplo);
-			} catch (ExceptionValidation e) {
+			} catch (ValidationException e) {
 				return RestUtil.getResponseValidationErro(e);
 			}catch (Exception e) {
 				return RestUtil.getResponseErroInesperado(e);
@@ -105,7 +105,7 @@ public class RESTCoordinate extends ASuperRestClass<Coordinate>{
 	public Response delete(@PathParam("id") long id){
 		try {
 			roleCoordinate.delete(id);
-		} catch (ExceptionValidation e) {
+		} catch (ValidationException e) {
 			return RestUtil.getResponseValidationErro(e);
 		}catch (Exception e) {
 			return RestUtil.getResponseErroInesperado(e);
