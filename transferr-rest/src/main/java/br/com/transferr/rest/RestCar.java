@@ -79,7 +79,6 @@ public class RestCar  extends ASuperRestClass<Car> {
 
 	@Override
 	public Response delete(long id) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

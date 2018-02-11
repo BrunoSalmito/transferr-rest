@@ -15,21 +15,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import br.com.transferr.core.constants.ConstantServicesREST;
 import br.com.transferr.core.exceptions.ValidationException;
 import br.com.transferr.core.model.Driver;
-import br.com.transferr.core.model.User;
 import br.com.transferr.core.role.RoleDriver;
-import br.com.transferr.core.role.RoleUser;
 import br.com.transferr.core.util.AnexoPhoto;
 import br.com.transferr.rest.util.RestUtil;
 
 public class RestDriver extends ASuperRestClass<Driver> {
 
-	
+
 	@Autowired
 	private RoleDriver roleDriver;
-	
+
 	public RestDriver() {
 		super();
-}
+	}
 
 	@GET
 	@Path("{id}")
@@ -45,8 +43,8 @@ public class RestDriver extends ASuperRestClass<Driver> {
 			return RestUtil.getResponseErroInesperado(e);
 		}
 		return Response.ok().entity(entidade).build();
-}
-	
+	}
+
 	@POST
 	@Path(ConstantServicesREST.REST_SAVE)
 	@Produces(MediaType.APPLICATION_JSON)
@@ -72,41 +70,31 @@ public class RestDriver extends ASuperRestClass<Driver> {
 			}
 		}
 		return Response.ok().entity(driver).build();
-}
-
+	}
 
 
 	@Override
 	public Response delete(long id) {
-		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	
-	
-	// TODO COMO TA A RESPONSE PARA OK?
+
 	@PUT
 	@Path(ConstantServicesREST.REST_SAVE)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response saveProfilePhoto(AnexoPhoto anexo){
-		if(anexo != null){
-			
-		}
-		
 		try {
 			roleDriver.saveProfilePhotosOnFileSystem(anexo.getIdentity() , anexo.getAnexoBase64());
-		} catch (ValidationException e) {
-			return RestUtil.getResponseValidationErro(e);
+			return RestUtil.getResponseOK();
 		}catch (Exception e) {
 			registrarErroGrave(e);
 			return RestUtil.getResponseErroInesperado(e);
 		}
-		return Response.ok().entity(driver).build();
+
 	}	
 
 
-	
-	
-	
+
+
+
 }
