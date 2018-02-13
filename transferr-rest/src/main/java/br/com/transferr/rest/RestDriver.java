@@ -11,6 +11,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import br.com.transferr.core.constants.ConstantServicesREST;
 import br.com.transferr.core.exceptions.ValidationException;
@@ -19,6 +20,8 @@ import br.com.transferr.core.role.RoleDriver;
 import br.com.transferr.core.util.AnexoPhoto;
 import br.com.transferr.rest.util.RestUtil;
 
+@Component
+@Path("driver")
 public class RestDriver extends ASuperRestClass<Driver> {
 
 

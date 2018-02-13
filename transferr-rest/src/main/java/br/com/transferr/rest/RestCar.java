@@ -12,6 +12,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import br.com.transferr.core.constants.ConstantServicesREST;
 import br.com.transferr.core.exceptions.ValidationException;
@@ -23,7 +24,8 @@ import br.com.transferr.core.role.RoleCar;
 import br.com.transferr.rest.util.RestUtil;
 
 import br.com.transferr.core.responses.*;
-
+@Component
+@Path("car")
 public class RestCar  extends ASuperRestClass<Car> {
 	
 	@Autowired
