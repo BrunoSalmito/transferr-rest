@@ -86,7 +86,7 @@ public class RestDriver extends ASuperRestClass<Driver> {
 	
 	// TODO COMO TA A RESPONSE PARA OK?
 	@PUT
-	@Path(ConstantServicesREST.REST_SAVE)
+	@Path("profile/photo")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response saveProfilePhoto(AnexoPhoto anexo){
