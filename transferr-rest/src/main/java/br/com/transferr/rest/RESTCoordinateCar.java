@@ -14,20 +14,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.com.transferr.core.exceptions.ValidationException;
-import br.com.transferr.core.model.Coordinate;
-import br.com.transferr.core.role.RoleCoordinate;
+import br.com.transferr.core.model.CoordinateCar;
+import br.com.transferr.core.role.RoleCoordinateCar;
 import br.com.transferr.rest.util.RestUtil;
 
 
 
 
 @Component
-@Path("/coordinates")
-public class RESTCoordinate extends ASuperRestClass<Coordinate>{
+@Path("/coordinatescar")
+public class RESTCoordinateCar extends ASuperRestClass<CoordinateCar>{
 	@Autowired
-	private RoleCoordinate roleCoordinate;
+	private RoleCoordinateCar roleCoordinate;
 	
-	public RESTCoordinate() {
+	public RESTCoordinateCar() {
 		
 	}
 	/**
@@ -51,7 +51,7 @@ public class RESTCoordinate extends ASuperRestClass<Coordinate>{
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response doGet(@PathParam("id") long id){
-		Coordinate entidade=null;
+		CoordinateCar entidade=null;
 		try {
 			entidade= roleCoordinate.find(id);
 		} catch (ValidationException e) {
@@ -71,7 +71,7 @@ public class RESTCoordinate extends ASuperRestClass<Coordinate>{
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response save(Coordinate exemplo){
+	public Response save(CoordinateCar exemplo){
 		if(exemplo.getId()>0){
 			try {
 				roleCoordinate.update(exemplo);
