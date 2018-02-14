@@ -3,16 +3,15 @@ package br.com.transferr.rest;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.com.transferr.core.dao.UserDAO;
 import br.com.transferr.core.exceptions.ValidationException;
 import br.com.transferr.core.model.Credentials;
 import br.com.transferr.core.model.User;
@@ -45,10 +44,6 @@ public class RestUser extends ASuperRestClass<User>{
 			registrarErroGrave(e);
 			return RestUtil.getResponseErroInesperado(e);
 		}
-//		ResponseAccessToken token = roleUsuario.issueToken(responseLogin.getUsuario(),credentials);
-//		if(token != null){
-//			responseLogin.setToken(token.getAccessToken());
-//		}
 		return Response.ok(responseLogin).build();
 	}
 	
@@ -103,13 +98,11 @@ public class RestUser extends ASuperRestClass<User>{
 
 	@Override
 	public Response save(User entity) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Response delete(long id) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }
