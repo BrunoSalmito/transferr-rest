@@ -82,7 +82,7 @@ public class RestDriver extends ASuperRestClass<Driver> {
 	}
 
 	@PUT
-	@Path(ConstantServicesREST.REST_SAVE)
+	@Path("profile/photo")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response saveProfilePhoto(AnexoPhoto anexo){
