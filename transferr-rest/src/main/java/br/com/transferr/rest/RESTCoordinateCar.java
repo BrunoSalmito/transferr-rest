@@ -4,6 +4,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Component;
 
 import br.com.transferr.core.exceptions.ValidationException;
 import br.com.transferr.core.model.CoordinateCar;
+import br.com.transferr.core.responses.RequestCoordinatesUpdate;
 import br.com.transferr.core.role.RoleCoordinateCar;
 import br.com.transferr.rest.util.RestUtil;
 
@@ -42,11 +44,7 @@ public class RESTCoordinateCar extends ASuperRestClass<CoordinateCar>{
 		return Response.ok("OK").build();
 	}
 	
-	/**
-	 * <p>Obter um medico pelo seu ID</p>
-	 * <p>ex url: http://hostserver/rest/medico/1</p>
-	 * @param id do tipo long
-	 */
+
 	@GET
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -62,12 +60,7 @@ public class RESTCoordinateCar extends ASuperRestClass<CoordinateCar>{
 
 		return Response.ok().entity(entidade).build();
 	}
-	/**
-	 * <p>Salva ou atualiza uma entidade de medico. Se a entidade medico vier com id ele atualiza caso contrario o 
-	 * mesmo é inserido como um novo registro</p>
-	 * <p>ex url: http://hostserver/rest/medico/save/{JSON do medico}</p>
-	 * @param exemplo JSON da entidade medico
-	 */
+
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -93,12 +86,7 @@ public class RESTCoordinateCar extends ASuperRestClass<CoordinateCar>{
 	}
 	
 	
-	/**
-	 * <p>Deleta um medico pelo seu ID</p>
-	 * <p>ex url: http://hostserver/rest/medico/delete/1</p>
-	 * <p><strong>ATENÇÃO: Não poderá ser desfeita</strong></p>
-	 * @param id do medico a ser deletado
-	 */
+
 	@DELETE
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -113,6 +101,22 @@ public class RESTCoordinateCar extends ASuperRestClass<CoordinateCar>{
 		return Response.ok().build();
 	}
 	
+	
+	@PUT
+	@Path("actual/location")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response updateLocation(RequestCoordinatesUpdate request){
+//		try {
+//			roleCoordinate.update(exemplo);
+//		} catch (ValidationException e) {
+//			return RestUtil.getResponseValidationErro(e);
+//		}catch (Exception e) {
+//			return RestUtil.getResponseErroInesperado(e);
+//		}
+	
+		return Response.ok().build();
+	}
 
 
 }
