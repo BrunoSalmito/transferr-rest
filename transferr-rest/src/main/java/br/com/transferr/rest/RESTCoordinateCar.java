@@ -107,15 +107,15 @@ public class RESTCoordinateCar extends ASuperRestClass<CoordinateCar>{
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response updateLocation(RequestCoordinatesUpdate request){
-//		try {
-//			roleCoordinate.update(exemplo);
-//		} catch (ValidationException e) {
-//			return RestUtil.getResponseValidationErro(e);
-//		}catch (Exception e) {
-//			return RestUtil.getResponseErroInesperado(e);
-//		}
+		try {
+			roleCoordinate.updateCoordinateByCar(request.getIdCar().longValue(), request.getLatitude(), request.getLongitude());
+		} catch (ValidationException e) {
+			return RestUtil.getResponseValidationErro(e);
+		}catch (Exception e) {
+			return RestUtil.getResponseErroInesperado(e);
+		}
 	
-		return Response.ok().build();
+		return Response.ok().entity(request).build();
 	}
 
 
