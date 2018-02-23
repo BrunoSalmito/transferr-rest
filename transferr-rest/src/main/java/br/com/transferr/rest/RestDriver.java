@@ -96,7 +96,21 @@ public class RestDriver extends ASuperRestClass<Driver> {
 
 	}	
 
-
+	@GET
+	@Path("by/car/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response doGetDriverByCar(@PathParam("id") Long id){
+		Driver entidade=null;
+		try {
+			entidade= roleDriver.getDriverByCar(id);
+		} catch (ValidationException e) {
+			return RestUtil.getResponseValidationErro(e);
+		} catch (Exception e) {
+			registrarErroGrave(e);
+			return RestUtil.getResponseErroInesperado(e);
+		}
+		return Response.ok().entity(entidade).build();
+	}
 
 
 

@@ -144,4 +144,20 @@ public class RestCar  extends ASuperRestClass<Car> {
 		}
 		return Response.ok(carsOnline, MediaType.APPLICATION_JSON).build();
 	}
+	
+	@GET
+	@Path("by/user/{idUser}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response doGetByUser(@PathParam("idUser") Long id){
+		Car entidade=null;
+		try {
+			entidade= roleCar.getCarByUser(id);
+		} catch (ValidationException e) {
+			return RestUtil.getResponseValidationErro(e);
+		} catch (Exception e) {
+			registrarErroGrave(e);
+			return RestUtil.getResponseErroInesperado(e);
+		}
+		return Response.ok().entity(entidade).build();
+	}
 }
