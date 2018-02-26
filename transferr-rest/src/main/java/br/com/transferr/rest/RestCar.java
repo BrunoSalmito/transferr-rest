@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -160,4 +161,38 @@ public class RestCar  extends ASuperRestClass<Car> {
 		}
 		return Response.ok().entity(entidade).build();
 	}
+	
+	@PUT
+	@Path("online")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response doPutCarOnline(RequestCoordinatesUpdate request){
+		try {
+			roleCar.putCarOnlineOrOffline(request, true);
+		} catch (ValidationException e) {
+			return RestUtil.getResponseValidationErro(e);
+		} catch (Exception e) {
+			registrarErroGrave(e);
+			return RestUtil.getResponseErroInesperado(e);
+		}
+		return RestUtil.getResponseOK();
+	}
+	
+	@PUT
+	@Path("offline")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response doPutCarOffline(RequestCoordinatesUpdate request){
+		try {
+			roleCar.putCarOnlineOrOffline(request, false);
+		} catch (ValidationException e) {
+			return RestUtil.getResponseValidationErro(e);
+		} catch (Exception e) {
+			registrarErroGrave(e);
+			return RestUtil.getResponseErroInesperado(e);
+		}
+		return RestUtil.getResponseOK();
+	}
+	
+	
 }
