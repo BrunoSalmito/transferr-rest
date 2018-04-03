@@ -27,13 +27,13 @@
 		<param-name>resteasy.role.based.security</param-name>
 		<param-value>true</param-value>
 	</context-param>
-	<!-- 
+	
 	<context-param>
 		<param-name>resteasy.providers</param-name>
-		<param-value>br.com.idoctor.rest.filter.AuthenticationFilter
+		<param-value>br.com.transferr.rest.providers.JacksonConfigProvider
 		</param-value>
 	</context-param>
-	 -->
+	
 	<context-param>
 		<param-name>resteasy.servlet.mapping.prefix</param-name>
 		<param-value>/rest</param-value>
