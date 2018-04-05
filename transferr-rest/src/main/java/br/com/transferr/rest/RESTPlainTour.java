@@ -6,6 +6,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -141,6 +142,22 @@ public class RESTPlainTour extends ASuperRestClass<PlainTour>{
 		PlainTour plainTour;
 		try {
 			plainTour = rolePlainTour.insert(responsePlainTour);
+		} catch (ValidationException e) {
+			return RestUtil.getResponseValidationErro(e);
+		}catch (Exception e) {
+			return RestUtil.getResponseErroInesperado(e);
+		}
+		return Response.ok().entity(plainTour).build();
+	}
+	
+	@PUT
+	@Path("increase/seats/{idPlainTour}/{seats}")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response doPutIncreaseSeats(@PathParam("idPlainTour") long idPlainTour,@PathParam("seats") int seats  ){		
+		PlainTour plainTour;
+		try {
+			plainTour = rolePlainTour.increseSeats(idPlainTour, seats);
 		} catch (ValidationException e) {
 			return RestUtil.getResponseValidationErro(e);
 		}catch (Exception e) {
