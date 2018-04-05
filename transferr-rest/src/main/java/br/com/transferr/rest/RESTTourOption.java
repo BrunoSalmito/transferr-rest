@@ -16,21 +16,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.com.transferr.core.exceptions.ValidationException;
-import br.com.transferr.core.model.PlainTour;
-import br.com.transferr.core.responses.ResponsePlainTour;
-import br.com.transferr.core.role.RolePlainTour;
+import br.com.transferr.core.model.TourOption;
+import br.com.transferr.core.role.RoleTourOption;
 import br.com.transferr.rest.util.RestUtil;
 
 
 
 
 @Component
-@Path("/plaintour")
-public class RESTPlainTour extends ASuperRestClass<PlainTour>{
+@Path("touroption")
+public class RESTTourOption extends ASuperRestClass<TourOption>{
 	@Autowired
-	private RolePlainTour rolePlainTour;
+	private RoleTourOption roleTourOption;
 	
-	public RESTPlainTour() {
+	public RESTTourOption() {
 		
 	}
 	/**
@@ -54,9 +53,9 @@ public class RESTPlainTour extends ASuperRestClass<PlainTour>{
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response doGet(@PathParam("id") long id){
-		PlainTour entidade=null;
+		TourOption entidade=null;
 		try {
-			entidade= rolePlainTour.find(id);
+			entidade= roleTourOption.find(id);
 		} catch (ValidationException e) {
 			return RestUtil.getResponseValidationErro(e);
 		} catch (Exception e) {
@@ -74,10 +73,10 @@ public class RESTPlainTour extends ASuperRestClass<PlainTour>{
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response save(PlainTour exemplo){
+	public Response save(TourOption exemplo){
 		if(exemplo.getId()>0){
 			try {
-				rolePlainTour.update(exemplo);
+				roleTourOption.update(exemplo);
 			} catch (ValidationException e) {
 				return RestUtil.getResponseValidationErro(e);
 			}catch (Exception e) {
@@ -85,7 +84,7 @@ public class RESTPlainTour extends ASuperRestClass<PlainTour>{
 			}
 		}else{
 			try {
-				rolePlainTour.insert(exemplo);
+				roleTourOption.insert(exemplo);
 			} catch (ValidationException e) {
 				return RestUtil.getResponseValidationErro(e);
 			}catch (Exception e) {
@@ -107,7 +106,7 @@ public class RESTPlainTour extends ASuperRestClass<PlainTour>{
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response delete(@PathParam("id") long id){
 		try {
-			rolePlainTour.delete(id);
+			roleTourOption.delete(id);
 		} catch (ValidationException e) {
 			return RestUtil.getResponseValidationErro(e);
 		}catch (Exception e) {
@@ -117,36 +116,18 @@ public class RESTPlainTour extends ASuperRestClass<PlainTour>{
 	}
 	
 	@GET
-	@Path("bydriver/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response doGetByDriver(@PathParam("id") long id){
-		List<PlainTour> plains=null;
+	public Response doGetAll(){
+		List<TourOption> option=null;
 		try {
-			plains= rolePlainTour.getDriverOpenPlainTour(id);
-		} catch (ValidationException e) {
-			return RestUtil.getResponseValidationErro(e);
+			option= roleTourOption.getAll();
 		} catch (Exception e) {
-			e.printStackTrace();
 			return RestUtil.getResponseErroInesperado(e);
 		}
 
-		return Response.ok().entity(plains).build();
+		return Response.ok().entity(option).build();
 	}
+	
 
-	@POST
-	@Path("save")
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response doSave(ResponsePlainTour responsePlainTour){		
-		PlainTour plainTour;
-		try {
-			plainTour = rolePlainTour.insert(responsePlainTour);
-		} catch (ValidationException e) {
-			return RestUtil.getResponseValidationErro(e);
-		}catch (Exception e) {
-			return RestUtil.getResponseErroInesperado(e);
-		}
-		return Response.ok().entity(plainTour).build();
-	}
 
 }
