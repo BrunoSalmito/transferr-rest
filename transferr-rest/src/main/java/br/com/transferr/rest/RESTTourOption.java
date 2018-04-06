@@ -124,10 +124,21 @@ public class RESTTourOption extends ASuperRestClass<TourOption>{
 		} catch (Exception e) {
 			return RestUtil.getResponseErroInesperado(e);
 		}
-
 		return Response.ok().entity(option).build();
 	}
 	
+	@GET
+	@Path("bylocation/{idLocation}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response doGetByLocaion(@PathParam("idLocation") long idLocation){
+		List<TourOption> options = null;
+		try {
+			options = roleTourOption.getByLocation(idLocation);
+		} catch (Exception e) {
+			return RestUtil.getResponseErroInesperado(e);
+		}
+		return Response.ok().entity(options).build();
+	}
 
 
 }

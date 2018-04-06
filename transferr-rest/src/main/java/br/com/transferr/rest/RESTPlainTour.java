@@ -165,5 +165,18 @@ public class RESTPlainTour extends ASuperRestClass<PlainTour>{
 		}
 		return Response.ok().entity(plainTour).build();
 	}
+	
+	@GET
+	@Path("bylocation/{idLocation}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response doGetByLocation(@PathParam("idLocation") long idLocation){
+		List<PlainTour> plains=null;
+		try {
+			plains= rolePlainTour.getByLocation(idLocation);
+		} catch (Exception e) {
+			return RestUtil.getResponseErroInesperado(e);
+		}
+		return Response.ok().entity(plains).build();
+	}
 
 }

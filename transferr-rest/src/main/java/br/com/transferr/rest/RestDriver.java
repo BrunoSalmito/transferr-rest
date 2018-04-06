@@ -1,5 +1,7 @@
 package br.com.transferr.rest;
 
+import java.util.List;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Component;
 import br.com.transferr.core.constants.ConstantServicesREST;
 import br.com.transferr.core.exceptions.ValidationException;
 import br.com.transferr.core.model.Driver;
+import br.com.transferr.core.responses.ResponseDriverByTourOption;
 import br.com.transferr.core.role.RoleDriver;
 import br.com.transferr.core.util.AnexoPhoto;
 import br.com.transferr.rest.util.RestUtil;
@@ -105,6 +108,20 @@ public class RestDriver extends ASuperRestClass<Driver> {
 			entidade= roleDriver.getDriverByCar(id);
 		} catch (ValidationException e) {
 			return RestUtil.getResponseValidationErro(e);
+		} catch (Exception e) {
+			registrarErroGrave(e);
+			return RestUtil.getResponseErroInesperado(e);
+		}
+		return Response.ok().entity(entidade).build();
+	}
+	
+	@GET
+	@Path("bytouroption/{idTourOption}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response doGetByTourOption(@PathParam("idTourOption") Long idTourOption){
+		List<ResponseDriverByTourOption> entidade=null;
+		try {
+			entidade= roleDriver.byTourOption(idTourOption);
 		} catch (Exception e) {
 			registrarErroGrave(e);
 			return RestUtil.getResponseErroInesperado(e);
