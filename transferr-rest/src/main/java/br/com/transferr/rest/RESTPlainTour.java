@@ -114,7 +114,7 @@ public class RESTPlainTour extends ASuperRestClass<PlainTour>{
 		}catch (Exception e) {
 			return RestUtil.getResponseErroInesperado(e);
 		}
-		return Response.ok().build();
+		return RestUtil.getResponseOK();
 	}
 	
 	@GET

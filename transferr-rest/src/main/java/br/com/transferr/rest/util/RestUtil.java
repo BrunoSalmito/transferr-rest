@@ -32,6 +32,7 @@ public class RestUtil {
 	
 	
 	public static Response getResponseErroInesperado(Throwable ex){
+		ex.printStackTrace();
 		return getResponseErroInesperado(ex.getMessage()); 
 	}
 	
