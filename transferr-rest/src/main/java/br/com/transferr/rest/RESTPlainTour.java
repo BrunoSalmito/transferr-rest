@@ -26,7 +26,7 @@ import br.com.transferr.rest.util.RestUtil;
 
 
 @Component
-@Path("/plaintour")
+@Path("plaintour")
 public class RESTPlainTour extends ASuperRestClass<PlainTour>{
 	@Autowired
 	private RolePlainTour rolePlainTour;

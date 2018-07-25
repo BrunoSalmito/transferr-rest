@@ -16,20 +16,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.com.transferr.core.exceptions.ValidationException;
-import br.com.transferr.core.model.Location;
-import br.com.transferr.core.role.RoleLocation;
+import br.com.transferr.core.model.Country;
+import br.com.transferr.core.role.RoleCountry;
 import br.com.transferr.rest.util.RestUtil;
 
 
 
 
 @Component
-@Path("/exemplo")
-public class RESTLocation extends ASuperRestClass<Location>{
+@Path("country")
+public class RESTCountry extends ASuperRestClass<Country>{
 	@Autowired
-	private RoleLocation roleLocation;
+	private RoleCountry roleCoutry;
 	
-	public RESTLocation() {
+	public RESTCountry() {
 		
 	}
 	/**
@@ -53,9 +53,9 @@ public class RESTLocation extends ASuperRestClass<Location>{
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response doGet(@PathParam("id") long id){
-		Location entidade=null;
+		Country entidade=null;
 		try {
-			entidade= roleLocation.find(id);
+			entidade= roleCoutry.find(id);
 		} catch (ValidationException e) {
 			return RestUtil.getResponseValidationErro(e);
 		} catch (Exception e) {
@@ -73,10 +73,10 @@ public class RESTLocation extends ASuperRestClass<Location>{
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response save(Location exemplo){
+	public Response save(Country exemplo){
 		if(exemplo.getId()>0){
 			try {
-				roleLocation.update(exemplo);
+				roleCoutry.update(exemplo);
 			} catch (ValidationException e) {
 				return RestUtil.getResponseValidationErro(e);
 			}catch (Exception e) {
@@ -84,7 +84,7 @@ public class RESTLocation extends ASuperRestClass<Location>{
 			}
 		}else{
 			try {
-				roleLocation.insert(exemplo);
+				roleCoutry.insert(exemplo);
 			} catch (ValidationException e) {
 				return RestUtil.getResponseValidationErro(e);
 			}catch (Exception e) {
@@ -106,7 +106,7 @@ public class RESTLocation extends ASuperRestClass<Location>{
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response delete(@PathParam("id") long id){
 		try {
-			roleLocation.delete(id);
+			roleCoutry.delete(id);
 		} catch (ValidationException e) {
 			return RestUtil.getResponseValidationErro(e);
 		}catch (Exception e) {
@@ -116,29 +116,12 @@ public class RESTLocation extends ASuperRestClass<Location>{
 	}
 	
 	@GET
-	@Path("bysubcountry/{idSubcountry}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response doGetBySubCountry(@PathParam("idSubcountry") long idSubcountry){
-		List<Location> locations = null;
-		try {
-			locations = roleLocation.bySubCountry(idSubcountry);
-		} catch (Exception e) {
-			return RestUtil.getResponseErroInesperado(e);
-		}
-		return Response.ok().entity(locations).build();
+	public Response doGetAllCountries() {
+		List<Country> list = roleCoutry.getAll();
+		return responseOK(list);
 	}
 	
-	@GET
-	@Path("bycountry/{idCountry}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response doGetByCountry(@PathParam("idCountry") long idCountry){
-		List<Location> locations = null;
-		try {
-			locations = roleLocation.byCountry(idCountry);
-		} catch (Exception e) {
-			return RestUtil.getResponseErroInesperado(e);
-		}
-		return Response.ok().entity(locations).build();
-	}
+
 
 }

@@ -51,6 +51,9 @@ public class RestUtil {
 	public static Response getResponseUnauthorized(Throwable ex){
 		return getResponseUnauthorized(ex.getMessage());
 	}
+	public static Response responseOK(Object object){
+		return Response.ok().entity(object).build();
+	}
 
 	  
 }

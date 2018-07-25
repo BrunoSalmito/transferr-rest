@@ -8,6 +8,7 @@ import javax.ws.rs.core.Response.Status;
 import org.springframework.context.ApplicationContext;
 
 import br.com.transferr.core.model.Entidade;
+import br.com.transferr.rest.util.RestUtil;
 
 
 
@@ -54,5 +55,9 @@ public abstract class ASuperRestClass <T extends Entidade> implements RESTInterf
 		} catch (Exception e1) {		
 			e1.printStackTrace();
 		}
+	}
+	
+	public Response responseOK(Object object) {
+		return RestUtil.responseOK(object);
 	}
 }
