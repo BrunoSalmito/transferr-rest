@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 
 import br.com.transferr.core.exceptions.ValidationException;
 import br.com.transferr.core.model.Location;
+import br.com.transferr.core.responses.ResponseLocation;
 import br.com.transferr.core.role.RoleLocation;
 import br.com.transferr.rest.util.RestUtil;
 
@@ -24,7 +25,7 @@ import br.com.transferr.rest.util.RestUtil;
 
 
 @Component
-@Path("/exemplo")
+@Path("location")
 public class RESTLocation extends ASuperRestClass<Location>{
 	@Autowired
 	private RoleLocation roleLocation;
@@ -116,12 +117,12 @@ public class RESTLocation extends ASuperRestClass<Location>{
 	}
 	
 	@GET
-	@Path("bysubcountry/{idSubcountry}")
+	@Path("by/subcountry/{idSubcountry}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response doGetBySubCountry(@PathParam("idSubcountry") long idSubcountry){
-		List<Location> locations = null;
+		List<ResponseLocation> locations = null;
 		try {
-			locations = roleLocation.bySubCountry(idSubcountry);
+			locations = roleLocation.getResponseBySubCountry(idSubcountry);
 		} catch (Exception e) {
 			return RestUtil.getResponseErroInesperado(e);
 		}

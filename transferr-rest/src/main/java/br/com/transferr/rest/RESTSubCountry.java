@@ -118,7 +118,7 @@ public class RESTSubCountry extends ASuperRestClass<SubCountry>{
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response doGetAll(@PathParam("id") long id){
+	public Response doGetAll(){
 		List<SubCountry> countries=null;
 		try {
 			countries = roleSubcountry.getAll();
@@ -127,6 +127,20 @@ public class RESTSubCountry extends ASuperRestClass<SubCountry>{
 		}
 		return Response.ok().entity(countries).build();
 	}
+	
+	@GET
+	@Path("by/country/{idCountry}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response doGetAllByCountry(@PathParam("idCountry") Long idCountry){
+		List<SubCountry> countries=null;
+		try {
+			countries = roleSubcountry.getByCountry(idCountry);
+		} catch (Exception e) {
+			return RestUtil.getResponseErroInesperado(e);
+		}
+		return Response.ok().entity(countries).build();
+	}
+
 
 
 }
