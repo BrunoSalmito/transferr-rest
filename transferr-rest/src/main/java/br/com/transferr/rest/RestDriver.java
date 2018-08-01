@@ -19,6 +19,7 @@ import br.com.transferr.core.constants.ConstantServicesREST;
 import br.com.transferr.core.exceptions.ValidationException;
 import br.com.transferr.core.model.Driver;
 import br.com.transferr.core.responses.ResponseDriverByTourOption;
+import br.com.transferr.core.responses.ResponseDrivers;
 import br.com.transferr.core.role.RoleDriver;
 import br.com.transferr.core.util.AnexoPhoto;
 import br.com.transferr.rest.util.RestUtil;
@@ -127,6 +128,15 @@ public class RestDriver extends ASuperRestClass<Driver> {
 			return RestUtil.getResponseErroInesperado(e);
 		}
 		return Response.ok().entity(entidade).build();
+	}
+	
+	@GET
+	@Path("by/location/{idLocation}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response doGetByLocation(@PathParam("idLocation") Long idLocation){
+		ResponseDrivers drivers = new ResponseDrivers();
+		drivers = roleDriver.listByLocation(idLocation);
+		return responseOK(drivers);
 	}
 
 
