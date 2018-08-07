@@ -142,4 +142,18 @@ public class RESTLocation extends ASuperRestClass<Location>{
 		return Response.ok().entity(locations).build();
 	}
 
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response doGetAll(){
+		List<Location> locations = null;
+		try {
+			locations = roleLocation.getAll();
+		} catch (Exception e) {
+			return RestUtil.getResponseErroInesperado(e);
+		}
+		return Response.ok().entity(locations).build();
+	}
+	
+	
+	
 }
