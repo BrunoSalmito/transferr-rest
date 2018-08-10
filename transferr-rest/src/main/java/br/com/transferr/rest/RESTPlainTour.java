@@ -19,6 +19,7 @@ import org.springframework.stereotype.Component;
 import br.com.transferr.core.exceptions.ValidationException;
 import br.com.transferr.core.model.PlainTour;
 import br.com.transferr.core.responses.ResponsePlainTour;
+import br.com.transferr.core.responses.ResponsePlainsByTourAndLocation;
 import br.com.transferr.core.role.RolePlainTour;
 import br.com.transferr.rest.util.RestUtil;
 
@@ -178,5 +179,19 @@ public class RESTPlainTour extends ASuperRestClass<PlainTour>{
 		}
 		return Response.ok().entity(plains).build();
 	}
+	
+	@GET
+	@Path("by/tour/and/location/{idTour}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response doGetPlainsByTourAndLocation(@PathParam("idTour") long idTour){
+		ResponsePlainsByTourAndLocation plains=null;
+		try {
+			plains= rolePlainTour.plainsByTourAndLocation(idTour);
+		} catch (Exception e) {
+			return RestUtil.getResponseErroInesperado(e);
+		}
+		return Response.ok().entity(plains).build();
+	}
+
 
 }
