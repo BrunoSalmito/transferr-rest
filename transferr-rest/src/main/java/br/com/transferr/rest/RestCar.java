@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.com.transferr.core.constants.ConstantServicesREST;
+import br.com.transferr.core.enums.EnumStatus;
 import br.com.transferr.core.exceptions.ValidationException;
 import br.com.transferr.core.metadata.Coordinates;
 import br.com.transferr.core.metadata.CoordinatesQuadrant;
@@ -187,6 +188,20 @@ public class RestCar  extends ASuperRestClass<Car> {
 			roleCar.putCarOnlineOrOffline(request, false);
 		} catch (ValidationException e) {
 			return RestUtil.getResponseValidationErro(e);
+		} catch (Exception e) {
+			registrarErroGrave(e);
+			return RestUtil.getResponseErroInesperado(e);
+		}
+		return RestUtil.getResponseOK();
+	}
+	
+	@PUT
+	@Path("update/status")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response statusCar(ResponseCarOnline response){
+		try {
+			roleCar.updateStatusCar(response.getIdCar(), response.getStatus());
 		} catch (Exception e) {
 			registrarErroGrave(e);
 			return RestUtil.getResponseErroInesperado(e);
