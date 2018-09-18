@@ -138,6 +138,20 @@ public class RestDriver extends ASuperRestClass<Driver> {
 		drivers = roleDriver.listByLocation(idLocation);
 		return responseOK(drivers);
 	}
+	
+	@GET
+	@Path("by/user/{userId}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response doGetDriverByUserId(@PathParam("userId") long userId) {
+		Driver driver = null;
+		try {
+			driver= roleDriver.findByUserID(userId);
+		} catch (Exception e) {
+			registrarErroGrave(e);
+			return RestUtil.getResponseErroInesperado(e);
+		}
+		return responseOK(driver);
+	}
 
 
 
