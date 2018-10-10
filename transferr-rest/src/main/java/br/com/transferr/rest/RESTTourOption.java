@@ -139,6 +139,19 @@ public class RESTTourOption extends ASuperRestClass<TourOption>{
 		}
 		return Response.ok().entity(options).build();
 	}
+	
+	@GET
+	@Path("bydriver/{idDriver}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response doGetByDriver(@PathParam("idDriver") long idDriver){
+		List<TourOption> options = null;
+		try {
+			options = roleTourOption.getTourOptionByDriver(idDriver);
+		} catch (Exception e) {
+			return RestUtil.getResponseErroInesperado(e);
+		}
+		return Response.ok().entity(options).build();
+	}
 
 
 }
