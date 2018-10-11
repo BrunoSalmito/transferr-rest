@@ -16,16 +16,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.com.transferr.core.constants.ConstantServicesREST;
-import br.com.transferr.core.enums.EnumStatus;
 import br.com.transferr.core.exceptions.ValidationException;
 import br.com.transferr.core.metadata.Coordinates;
 import br.com.transferr.core.metadata.CoordinatesQuadrant;
 import br.com.transferr.core.model.Car;
+import br.com.transferr.core.responses.RequestCoordinatesUpdate;
+import br.com.transferr.core.responses.ResponseCarOnline;
+import br.com.transferr.core.responses.ResponseCarsOnline;
 import br.com.transferr.core.role.RoleCar;
-
 import br.com.transferr.rest.util.RestUtil;
-
-import br.com.transferr.core.responses.*;
 @Component
 @Path("car")
 public class RestCar  extends ASuperRestClass<Car> {
@@ -202,6 +201,20 @@ public class RestCar  extends ASuperRestClass<Car> {
 	public Response statusCar(ResponseCarOnline response){
 		try {
 			roleCar.updateStatusCar(response.getIdCar(), response.getStatus());
+		} catch (Exception e) {
+			registrarErroGrave(e);
+			return RestUtil.getResponseErroInesperado(e);
+		}
+		return RestUtil.getResponseOK();
+	}
+	
+	@PUT
+	@Path("always/on/map/{idCar}/{always}")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response doPutAlwaysOnMap(@PathParam("always") Long idCar, @PathParam("always") boolean always){
+		try {
+			roleCar.updateAlwaysOnMap(idCar, always);
 		} catch (Exception e) {
 			registrarErroGrave(e);
 			return RestUtil.getResponseErroInesperado(e);
