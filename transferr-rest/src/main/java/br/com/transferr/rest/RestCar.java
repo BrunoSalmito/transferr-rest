@@ -211,8 +211,7 @@ public class RestCar  extends ASuperRestClass<Car> {
 	@PUT
 	@Path("always/on/map/{idCar}/{always}")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response doPutAlwaysOnMap(@PathParam("always") Long idCar, @PathParam("always") boolean always){
+	public Response doPutAlwaysOnMap(@PathParam("idCar") Long idCar, @PathParam("always") boolean always){
 		try {
 			roleCar.updateAlwaysOnMap(idCar, always);
 		} catch (Exception e) {
