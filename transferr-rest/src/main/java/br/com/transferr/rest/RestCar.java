@@ -91,7 +91,8 @@ public class RestCar  extends ASuperRestClass<Car> {
 	public Response doGetByDriver(@PathParam("idDriver") long id){
 		Car entidade=null;
 		try {
-			entidade= roleCar.find(id);
+			entidade= roleCar.findCarByDriver(id);
+			
 		} catch (ValidationException e) {
 			return RestUtil.getResponseValidationErro(e);
 		} catch (Exception e) {
