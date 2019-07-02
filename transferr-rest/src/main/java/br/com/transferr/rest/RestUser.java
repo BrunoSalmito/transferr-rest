@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 import br.com.transferr.core.exceptions.ValidationException;
 import br.com.transferr.core.model.Credentials;
 import br.com.transferr.core.model.User;
+import br.com.transferr.core.responses.ResponseContactUs;
 import br.com.transferr.core.responses.ResponseLogin;
 import br.com.transferr.core.role.RoleUser;
 import br.com.transferr.rest.util.RestUtil;
@@ -94,7 +95,7 @@ public class RestUser extends ASuperRestClass<User>{
 			return RestUtil.getResponseErroInesperado(e);
 		}
 		return Response.ok().entity(entidade).build();
-}
+	}
 
 	@Override
 	public Response save(User entity) {
@@ -105,4 +106,21 @@ public class RestUser extends ASuperRestClass<User>{
 	public Response delete(long id) {
 		return null;
 	}
+	
+	@POST
+	@Path("contact/by/email")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response doPostContactByEmail(ResponseContactUs responseContactUs) {
+		try {
+			roleUser.contactUsByEmail(responseContactUs);
+			return RestUtil.getResponseOK();
+		} catch (ValidationException e) {
+			return RestUtil.getResponseValidationErro(e);
+		}catch (Exception e) {
+			registrarErroGrave(e);
+			return RestUtil.getResponseErroInesperado(e);
+		}
+}
+	
+	
 }
