@@ -1,5 +1,6 @@
 package br.com.transferr.rest;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -110,6 +111,7 @@ public class RestUser extends ASuperRestClass<User>{
 	@POST
 	@Path("contact/by/email")
 	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
 	public Response doPostContactByEmail(ResponseContactUs responseContactUs) {
 		try {
 			roleUser.contactUsByEmail(responseContactUs);
