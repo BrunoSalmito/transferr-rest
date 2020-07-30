@@ -153,6 +153,18 @@ public class RestDriver extends ASuperRestClass<Driver> {
 		return responseOK(driver);
 	}
 
-
+	
+	@GET
+	@Path("by/touroption/{idTourOption}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response doGetDriversByTourOption(@PathParam("idTourOption") final Long idTourOption){
+		ResponseDrivers drivers = new ResponseDrivers();
+		try {
+			drivers = roleDriver.listByTourOption(idTourOption);
+		} catch (ValidationException e) {
+			return responseValidation(e);
+		}
+		return responseOK(drivers);
+	}
 
 }

@@ -7,6 +7,7 @@ import javax.ws.rs.core.Response.Status;
 
 import org.springframework.context.ApplicationContext;
 
+import br.com.transferr.core.exceptions.ValidationException;
 import br.com.transferr.core.model.Entidade;
 import br.com.transferr.rest.util.RestUtil;
 
@@ -59,5 +60,14 @@ public abstract class ASuperRestClass <T extends Entidade> implements RESTInterf
 	
 	public Response responseOK(Object object) {
 		return RestUtil.responseOK(object);
+	}
+	
+	protected Response responseValidation(ValidationException e) {
+		StringBuilder error = new StringBuilder(e.getMessage());
+		e.printStackTrace();
+		if(e.getCause() != null){
+			error.append(e.getCause().getMessage());
+		}
+		return Response.status(Status.BAD_REQUEST).entity(error.toString()).build();
 	}
 }

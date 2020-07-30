@@ -14,6 +14,7 @@ import javax.ws.rs.core.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.transferr.core.exceptions.ValidationException;
 import br.com.transferr.core.model.TourOption;
@@ -114,11 +115,12 @@ public class RESTTourOption extends ASuperRestClass<TourOption>{
 		}
 		return Response.ok().build();
 	}
-	
+	@Transactional
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response doGetAll(){
 		List<TourOption> option=null;
+		System.out.println("Get All tour options");
 		try {
 			option= roleTourOption.getAll();
 		} catch (Exception e) {
